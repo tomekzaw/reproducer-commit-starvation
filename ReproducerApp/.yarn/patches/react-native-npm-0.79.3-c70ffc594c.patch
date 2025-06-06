@@ -1,0 +1,12 @@
+diff --git a/ReactCommon/react/renderer/mounting/ShadowTree.cpp b/ReactCommon/react/renderer/mounting/ShadowTree.cpp
+index 522ec5739c9336e2f4ecbe0b9b23b43f287e9106..c0dbf45aeccca16daa341abe596ba46c3df81b05 100644
+--- a/ReactCommon/react/renderer/mounting/ShadowTree.cpp
++++ b/ReactCommon/react/renderer/mounting/ShadowTree.cpp
+@@ -240,6 +240,7 @@ CommitStatus ShadowTree::commit(
+ 
+   while (true) {
+     attempts++;
++    LOG(INFO) << "attempts=" << attempts;
+ 
+     auto status = tryCommit(transaction, commitOptions);
+     if (status != CommitStatus::Failed) {

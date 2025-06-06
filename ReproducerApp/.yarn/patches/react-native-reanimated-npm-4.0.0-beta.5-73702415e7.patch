@@ -1,0 +1,27 @@
+diff --git a/Common/cpp/reanimated/Fabric/ReanimatedCommitHook.cpp b/Common/cpp/reanimated/Fabric/ReanimatedCommitHook.cpp
+index 8dff095245658f14775523445c85a5ddafbab786..41fd324192b757ee6bf9269849857016ede58f95 100644
+--- a/Common/cpp/reanimated/Fabric/ReanimatedCommitHook.cpp
++++ b/Common/cpp/reanimated/Fabric/ReanimatedCommitHook.cpp
+@@ -67,6 +67,9 @@ RootShadowNode::Unshared ReanimatedCommitHook::shadowTreeWillCommit(
+     reaShadowNode->setReanimatedMountTrait();
+     return newRootShadowNode;
+   }
++  
++  // Simulate long layout calculation by artificially slowing down commits coming from React by 10 ms
++  usleep(10000);
+ 
+   // ShadowTree not commited by Reanimated, apply updates from the updates
+   // registry manager
+diff --git a/Common/cpp/reanimated/Fabric/updates/UpdatesRegistryManager.cpp b/Common/cpp/reanimated/Fabric/updates/UpdatesRegistryManager.cpp
+index ea566e2fa3f67927a40160b32096673fb1547b37..20d13a50c977df820e837abd1253d456ce613a60 100644
+--- a/Common/cpp/reanimated/Fabric/updates/UpdatesRegistryManager.cpp
++++ b/Common/cpp/reanimated/Fabric/updates/UpdatesRegistryManager.cpp
+@@ -19,7 +19,7 @@ void UpdatesRegistryManager::addRegistry(
+ }
+ 
+ void UpdatesRegistryManager::pauseReanimatedCommits() {
+-  isPaused_ = true;
++  // isPaused_ = true; // pausing is now disabled
+ }
+ 
+ bool UpdatesRegistryManager::shouldReanimatedSkipCommit() {
